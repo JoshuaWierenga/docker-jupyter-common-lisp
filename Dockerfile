@@ -1,5 +1,5 @@
 FROM ubuntu:focal
-ARG DEBIAN_FRONTEND noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update; \
     apt-get upgrade; \
     apt install -y --no-install-recommends \
