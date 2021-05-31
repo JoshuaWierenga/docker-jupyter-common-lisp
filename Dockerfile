@@ -35,5 +35,5 @@ RUN apt-get update; \
     c.NotebookApp.notebook_dir = '/srv/jupyter/'" \
     } >> ~/.jupyter/jupyter_notebook_config.py;
 CMD su - jupyter; \
-    echo "c.NotebookApp.password = u'$(echo $juypterPassword | python3 -c 'from notebook.auth import passwd;print(passwd(input()))')'" >> ~/.jupyter/jupyter_notebook_config.py;
+    echo "c.NotebookApp.password = u'$(echo $juypterPassword | python3 -c 'from notebook.auth import passwd;print(passwd(input()))')'" >> ~/.jupyter/jupyter_notebook_config.py; \
     jupyter notebook;
