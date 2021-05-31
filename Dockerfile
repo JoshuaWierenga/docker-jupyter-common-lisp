@@ -24,8 +24,7 @@ RUN apt-get update; \
     useradd -mp "$(openssl passwd -crypt jupyter)" jupyter; \
     usermod -s /bin/bash jupyter;
 USER jupyter
-RUN
-    ros install common-lisp-jupyter; \
+RUN ros install common-lisp-jupyter; \
     echo 'export PATH=$PATH:~/.roswell/bin' >> ~/.bashrc; \
     jupyter notebook --generate-config \
     { \
