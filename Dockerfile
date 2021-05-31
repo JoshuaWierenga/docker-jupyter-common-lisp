@@ -8,7 +8,7 @@ RUN apt-get update; \
           python3-dev \
           libczmq-dev \
           curl \ 
-          make
+          make \
           build-essential; \
     \
     tmpdir=$(mktemp -d); \
@@ -30,10 +30,10 @@ RUN apt-get update; \
     jupyter notebook --generate-config \
     { \
       echo "c.NotebookApp.ip = '*' \
-    c.NotebookApp.password = u'$(echo $juypterPassword | python3 -c 'from notebook.auth import passwd;print(passwd(input()))')' \
     c.NotebookApp.open_browser = False \
     c.NotebookApp.port = 8888 \
     c.NotebookApp.notebook_dir = '/srv/jupyter/'" \
     } >> ~/.jupyter/jupyter_notebook_config.py;
 CMD su - jupyter; \
+    echo "c.NotebookApp.password = u'$(echo $juypterPassword | python3 -c 'from notebook.auth import passwd;print(passwd(input()))')'" >> ~/.jupyter/jupyter_notebook_config.py;
     jupyter notebook;
