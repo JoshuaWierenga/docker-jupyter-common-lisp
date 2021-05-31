@@ -1,12 +1,13 @@
 FROM ubuntu:focal
-ENV DEBIAN_FRONTEND noninteractive
+ARG DEBIAN_FRONTEND noninteractive
 RUN apt-get update; \
     apt-get upgrade; \
     apt install -y --no-install-recommends \
           libev-dev \
           python3-pip \
           python3-dev \
-          libczmq-dev; \
+          libczmq-dev \
+          curl ; \
     \
     tmpdir=$(mktemp -d); \
     cd "$tmpdir" || exit; \
