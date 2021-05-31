@@ -15,7 +15,7 @@ RUN apt-get update; \
     cd "$tmpdir" || exit; \
     curl -s https://api.github.com/repos/roswell/roswell/releases/latest | grep "browser_download_url.*amd64\.deb" | cut -d : -f 2,3 | tr -d \" | xargs curl -L --output roswell.deb; \
     dpkg -i roswell.deb; \
-    cd; \
+    cd || exit; \
     rm -rf "$tmpdir"; \
     \
     pip3 install --upgrade pip; \
@@ -26,7 +26,10 @@ RUN apt-get update; \
 USER jupyter
 RUN ros install common-lisp-jupyter; \
     echo 'export PATH=$PATH:~/.roswell/bin' >> ~/.bashrc; \
-    jupyter notebook --generate-config \
+    jupyter notebook --generate-config; \
+    if [ ! -f ~/.jupyter/jupyter_notebook_config.py ]; then
+        exit;
+    fi
     { \
       echo "c.NotebookApp.ip = '*' \
     c.NotebookApp.open_browser = False \
