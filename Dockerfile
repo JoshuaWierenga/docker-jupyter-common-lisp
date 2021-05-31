@@ -13,3 +13,4 @@ RUN apt-get update; \
     usermod -aG sudo jupyter; \
     usermod -s /bin/bash jupyter; \
     mkdir -p /home/jupyter/.local/bin
+CMD bash && tail -f /dev/null
