@@ -2,12 +2,13 @@ FROM ubuntu:focal
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update; \
     apt-get upgrade; \
-    apt install -y --no-install-recommends \
+    apt-get install -y --no-install-recommends \
           libev-dev \
           python3-pip \
           python3-dev \
           libczmq-dev \
-          curl ; \
+          curl \ 
+          make; \
     \
     tmpdir=$(mktemp -d); \
     cd "$tmpdir" || exit; \
