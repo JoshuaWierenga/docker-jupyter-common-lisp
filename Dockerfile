@@ -8,7 +8,8 @@ RUN apt-get update; \
           python3-dev \
           libczmq-dev \
           curl \ 
-          make; \
+          make
+          build-essential; \
     \
     tmpdir=$(mktemp -d); \
     cd "$tmpdir" || exit; \
