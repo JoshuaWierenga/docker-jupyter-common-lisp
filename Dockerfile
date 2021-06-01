@@ -25,7 +25,7 @@ RUN apt-get update; \
     usermod -s /bin/bash jupyter;
 USER jupyter
 RUN ros install common-lisp-jupyter; \
-    echo 'export PATH=$PATH:~/.roswell/bin' >> ~/.profile; \
+    echo PATH="$HOME/.roswell/bin:$PATH" >> ~/.profile; \
     jupyter notebook --generate-config; \
     echo c.NotebookApp.ip = \'*\' >> ~/.jupyter/jupyter_notebook_config.py; \
     echo c.NotebookApp.open_browser = False >> ~/.jupyter/jupyter_notebook_config.py; \
