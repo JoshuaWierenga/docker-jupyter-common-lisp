@@ -21,8 +21,7 @@ RUN apt-get update; \
     pip3 install --upgrade pip; \
     pip3 install jupyter; \
     \
-    useradd -mp "$(openssl passwd -crypt jupyter)" jupyter; \
-    usermod -s /bin/bash jupyter;
+    useradd -mp "$(openssl passwd -crypt jupyter)" jupyter;
 USER jupyter
 RUN ros install common-lisp-jupyter; \
     jupyter notebook --generate-config; \
