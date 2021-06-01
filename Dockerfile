@@ -25,10 +25,12 @@ RUN apt-get update; \
 USER jupyter
 RUN ros install common-lisp-jupyter; \
     jupyter notebook --generate-config; \
-    echo c.NotebookApp.ip = \'*\' >> ~/.jupyter/jupyter_notebook_config.py; \
-    echo c.NotebookApp.open_browser = False >> ~/.jupyter/jupyter_notebook_config.py; \
-    echo c.NotebookApp.port = 8888 >> ~/.jupyter/jupyter_notebook_config.py; \
-    echo c.NotebookApp.notebook_dir = \'/srv/jupyter/\' >> ~/.jupyter/jupyter_notebook_config.py;
+    { \
+        echo c.NotebookApp.ip = \'*\'; \
+        echo c.NotebookApp.open_browser = False; \
+        echo c.NotebookApp.port = 8888; \
+        echo c.NotebookApp.notebook_dir = \'/srv/jupyter/\'; \
+    }>> ~/.jupyter/jupyter_notebook_config.py;
 CMD PATH="$HOME/.roswell/bin:$PATH"; \
     echo c.NotebookApp.password = u\'"$(echo $jupyterPassword | python3 -c 'from notebook.auth import passwd;print(passwd(input()))')"\' >> ~/.jupyter/jupyter_notebook_config.py; \
     jupyter notebook;
