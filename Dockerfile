@@ -31,5 +31,7 @@ RUN ros install common-lisp-jupyter; \
     echo c.NotebookApp.open_browser = False >> ~/.jupyter/jupyter_notebook_config.py; \
     echo c.NotebookApp.port = 8888 >> ~/.jupyter/jupyter_notebook_config.py; \
     echo c.NotebookApp.notebook_dir = \'/srv/jupyter/\' >> ~/.jupyter/jupyter_notebook_config.py;
-CMD echo c.NotebookApp.password = u\'"$(echo $jupyterPassword | python3 -c 'from notebook.auth import passwd;print(passwd(input()))')"\' >> ~/.jupyter/jupyter_notebook_config.py; \
+CMD echo $PATH; \
+    echo $0; \
+    echo c.NotebookApp.password = u\'"$(echo $jupyterPassword | python3 -c 'from notebook.auth import passwd;print(passwd(input()))')"\' >> ~/.jupyter/jupyter_notebook_config.py; \
     jupyter notebook;
