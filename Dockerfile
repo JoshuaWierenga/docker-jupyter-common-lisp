@@ -26,15 +26,6 @@ RUN apt-get update; \
 USER jupyter
 RUN ros install common-lisp-jupyter; \
     echo 'export PATH=$PATH:~/.roswell/bin' >> ~/.bashrc; \
-    jupyter notebook --generate-config; \
-    if [ ! -f ~/.jupyter/jupyter_notebook_config.py ]; then \
-        exit; \
-    fi; \
-    { \
-      echo "c.NotebookApp.ip = '*' \
-    c.NotebookApp.open_browser = False \
-    c.NotebookApp.port = 8888 \
-    c.NotebookApp.notebook_dir = '/srv/jupyter/'" \
-    } >> ~/.jupyter/jupyter_notebook_config.py;
+    jupyter notebook --generate-config;
 CMD "c.NotebookApp.password = u'$(echo $juypterPassword | python3 -c 'from notebook.auth import passwd;print(passwd(input()))')'" >> ~/.jupyter/jupyter_notebook_config.py; \
     jupyter notebook;
