@@ -32,6 +32,6 @@ RUN ros install common-lisp-jupyter; \
     echo c.NotebookApp.port = 8888 >> ~/.jupyter/jupyter_notebook_config.py;
 CMD echo "$jupyterPassword"; \
     hashed=$(echo $jupyterPassword | python3 -c 'from notebook.auth import passwd;print(passwd(input()))'); \
-    echo "$hashed;" \
+    echo "$hashed"; \
     echo c.NotebookApp.password = u\'"$hashed"\' >> ~/.jupyter/jupyter_notebook_config.py; \
     jupyter notebook;
