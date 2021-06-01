@@ -29,7 +29,7 @@ RUN ros install common-lisp-jupyter; \
     jupyter notebook --generate-config; \
     if [ ! -f ~/.jupyter/jupyter_notebook_config.py ]; then \
         exit; \
-    fi \
+    fi; \
     { \
       echo "c.NotebookApp.ip = '*' \
     c.NotebookApp.open_browser = False \
