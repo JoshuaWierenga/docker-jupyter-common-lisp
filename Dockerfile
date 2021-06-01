@@ -12,10 +12,10 @@ RUN apt-get update; \
           build-essential; \
     \
     tmpdir=$(mktemp -d); \
-    cd "$tmpdir" || exit; \
+    cd "$tmpdir" || exit 1; \
     curl -s https://api.github.com/repos/roswell/roswell/releases/latest | grep "browser_download_url.*amd64\.deb" | cut -d : -f 2,3 | tr -d \" | xargs curl -L --output roswell.deb; \
     dpkg -i roswell.deb; \
-    cd || exit; \
+    cd || exit 1; \
     rm -rf "$tmpdir"; \
     \
     pip3 install --upgrade pip; \
