@@ -21,13 +21,14 @@ RUN apt-get update; \
     pip3 install jupyter; \
     \
     useradd -mp "$(openssl passwd -crypt jupyter)" jupyter; \
+    usermod -aG sudo jupyter; \
     \
     apt-get remove -y \
         python3-pip; \
-    apt-get autoremove; \
+    apt-get autoremove -y; \
     apt-get clean;
 USER jupyter
-RUN sudo apt-get install -y --no-install-recommends \
+RUN sudo -u root apt-get install -y --no-install-recommends \
         libev-dev \
         build-essential; \
     \
@@ -40,12 +41,11 @@ RUN sudo apt-get install -y --no-install-recommends \
         echo c.NotebookApp.notebook_dir = \'/srv/jupyter/\'; \
     }>> ~/.jupyter/jupyter_notebook_config.py; \
     \
-    apt-get remove -y \
+    sudo -u root apt-get remove -y \
         libev-dev \
         build-essential; \
-   apt-get autoremove; \
-   apt-get clean;
-USER jupyter
+   sudo -u root apt-get autoremove -y; \
+   sudo -u root apt-get clean;
 CMD PATH="$HOME/.roswell/bin:$PATH"; \
     echo c.NotebookApp.password = u\'"$(echo $jupyterPassword | python3 -c 'from notebook.auth import passwd;print(passwd(input()))')"\' >> ~/.jupyter/jupyter_notebook_config.py; \
     jupyter notebook;
