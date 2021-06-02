@@ -26,6 +26,7 @@ RUN apt-get update; \
     \
     sudo -u jupyter ros install common-lisp-jupyter; \
     \
+    export SUDO_FORCE_REMOVE=yes; \
     apt-get remove -y \
         libev-dev \
         python3-pip \
