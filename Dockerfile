@@ -7,7 +7,8 @@ RUN apt-get update; \
           python3-dev \
           libczmq-dev \
           curl \ 
-          make; \
+          make \
+          sudo; \
     \
     tmpdir=$(mktemp -d); \
     cd "$tmpdir" || exit 1; \
