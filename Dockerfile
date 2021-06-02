@@ -21,14 +21,7 @@ RUN apt-get update; \
     pip3 install --upgrade pip; \
     pip3 install jupyter; \
     \
-    useradd -mp "$(openssl passwd -crypt jupyter)" jupyter; \
-    \
-    apt-get remove -y \
-        libev-dev \
-        python3-pip \
-        curl \
-        make \
-        build-essential;
+    useradd -mp "$(openssl passwd -crypt jupyter)" jupyter;
 USER jupyter
 RUN ros install common-lisp-jupyter; \
     jupyter notebook --generate-config; \
@@ -38,6 +31,14 @@ RUN ros install common-lisp-jupyter; \
         echo c.NotebookApp.port = 8888; \
         echo c.NotebookApp.notebook_dir = \'/srv/jupyter/\'; \
     }>> ~/.jupyter/jupyter_notebook_config.py;
+USER root
+RUN  apt-get remove -y \
+        libev-dev \
+        python3-pip \
+        curl \
+        make \
+        build-essential;
+USER jupyter
 CMD PATH="$HOME/.roswell/bin:$PATH"; \
     echo c.NotebookApp.password = u\'"$(echo $jupyterPassword | python3 -c 'from notebook.auth import passwd;print(passwd(input()))')"\' >> ~/.jupyter/jupyter_notebook_config.py; \
     jupyter notebook;
