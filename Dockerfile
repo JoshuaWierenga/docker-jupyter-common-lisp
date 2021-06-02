@@ -33,9 +33,8 @@ RUN ros install common-lisp-jupyter; \
     }>> ~/.jupyter/jupyter_notebook_config.py;
 USER root
 RUN  apt-get remove -y \
+        libev-dev \
         python3-pip \
-        curl \
-        make \
         build-essential; \
      apt-get autoremove; \
      apt-get clean; \
