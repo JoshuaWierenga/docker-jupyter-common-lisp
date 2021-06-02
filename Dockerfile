@@ -32,7 +32,8 @@ RUN apt-get update; \
         build-essential \
         sudo; \
     apt-get autoremove -y; \
-    apt-get clean;
+    apt-get clean; \
+    rm -rf /var/lib/apt/lists/*;
 USER jupyter
 RUN jupyter notebook --generate-config; \
     { \
