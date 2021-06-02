@@ -1,14 +1,24 @@
 FROM archlinux:base-devel
+#Temporary fix to get around docker issue, https://bugs.archlinux.org/task/69563
+RUN patched_glibc=glibc-linux4-2.33-5-x86_64.pkg.tar.zst; \
+    curl -LO "https://repo.archlinuxcn.org/x86_64/$patched_glibc"; \
+    bsdtar -C / -xvf "$patched_glibc";
 RUN pacman -Syu; \
     pacman -S git; \
     \
-    git clone https://aur.archlinux.org/yay.git; \
+    useradd -m jupyter; \
+    passwd -d jupyter; \
+    printf 'jupyter ALL=(ALL) ALL\n' | tee -a /etc/sudoers;
+#TODO: Refactor?, this ensures git is in the resulting image
+USER jupyter
+RUN git clone https://aur.archlinux.org/yay.git; \
     cd yay; \
-    ls; \
-    makepkg -si; \
-    ls;
-    #pacman -U yay
+    makepkg -si --noconfirm; \
+    yay -S roswell;
     
+    
+    #TODO: Remove GO!, it was installed by makepkg
+    #TODO: Remove yay?
     #apt-get install -y --no-install-recommends \
     #    libev-dev \
     #    python3-pip \
@@ -28,8 +38,6 @@ RUN pacman -Syu; \
     #\
     #pip3 install --upgrade pip; \
     #pip3 install jupyter; \
-    #\
-    #useradd -mp "$(openssl passwd -crypt jupyter)" jupyter; \
     #\
     #sudo -u jupyter ros install common-lisp-jupyter; \
     #\
