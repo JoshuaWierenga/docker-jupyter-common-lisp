@@ -33,11 +33,13 @@ RUN ros install common-lisp-jupyter; \
     }>> ~/.jupyter/jupyter_notebook_config.py;
 USER root
 RUN  apt-get remove -y \
-        libev-dev \
         python3-pip \
         curl \
         make \
-        build-essential;
+        build-essential; \
+     apt-get autoremove; \
+     apt-get clean; \
+     rm -rf /var/lib/apt/lists/*;
 USER jupyter
 CMD PATH="$HOME/.roswell/bin:$PATH"; \
     echo c.NotebookApp.password = u\'"$(echo $jupyterPassword | python3 -c 'from notebook.auth import passwd;print(passwd(input()))')"\' >> ~/.jupyter/jupyter_notebook_config.py; \
