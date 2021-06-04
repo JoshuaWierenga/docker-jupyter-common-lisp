@@ -25,7 +25,7 @@ RUN cd ~; \
 USER root
     #pacman -Rcns git yay go; needs to be done in the same layer as pacman -S git --noconfirm, makepkg -si --noconfirm and yay -S roswell 
     #TODO: Check if libev is still required
-    pacman -S libev python python-pip python-six python-cffi zeromq --noconfirm;
+RUN pacman -S libev python python-pip python-six python-cffi zeromq --noconfirm;
     \
     pip3 install --upgrade pip; \
     pip3 install jupyter; \
