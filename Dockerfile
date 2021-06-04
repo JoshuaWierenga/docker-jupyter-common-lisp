@@ -17,7 +17,7 @@ RUN cd ~; \
     git clone https://aur.archlinux.org/yay.git; \
     cd yay; \
     makepkg -si --noconfirm; \
-    yes N | yay -S roswell;
+    yes N | yay -S roswell; \
     cd ~; \
     rm -rf yay;
     #TODO: Remove GO!, it was installed by makepkg
