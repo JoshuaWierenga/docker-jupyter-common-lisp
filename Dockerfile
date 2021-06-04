@@ -9,9 +9,12 @@ RUN pacman -Syu --noconfirm; \
     useradd -m jupyter; \
     passwd -d jupyter; \
     printf 'jupyter ALL=(ALL) ALL\n' | tee -a /etc/sudoers;
-#TODO: Refactor?, this ensures git is in the resulting image
+#TODO: Refactor?, this ensures git is in the resulting image but it is not needed post image building
 USER jupyter
-RUN git clone https://aur.archlinux.org/yay.git; \
+#TODO: Skip yay and just install roswell directly?
+RUN pwd; \
+    cd ~; \
+    git clone https://aur.archlinux.org/yay.git; \
     cd yay; \
     makepkg -si --noconfirm; \
     yay -S roswell;
@@ -19,6 +22,7 @@ RUN git clone https://aur.archlinux.org/yay.git; \
     
     #TODO: Remove GO!, it was installed by makepkg
     #TODO: Remove yay?
+    
     #apt-get install -y --no-install-recommends \
     #    libev-dev \
     #    python3-pip \
